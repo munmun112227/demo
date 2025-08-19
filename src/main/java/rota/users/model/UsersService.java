@@ -28,7 +28,7 @@ public class UsersService {
     }
 
     public UsersVO addUser(UsersVO usersVO) throws IllegalArgumentException {
-        if (usersRepository.findByAccount(usersVO.getAccount()) != null) {
+        if (usersRepository.findByAccount(usersVO.getAccount()).isPresent()) {
             throw new IllegalArgumentException("User with account " + usersVO.getAccount() + " already exists!");
         } else {
             return usersRepository.save(usersVO);
