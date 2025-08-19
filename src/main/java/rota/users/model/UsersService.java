@@ -27,6 +27,15 @@ public class UsersService {
         return usersRepository.findById(userId).orElse(null);
     }
 
+    public UsersVO addUser(UsersVO usersVO) throws IllegalArgumentException {
+        if (usersRepository.findByAccount(usersVO.getAccount()) != null) {
+            throw new IllegalArgumentException("User with account " + usersVO.getAccount() + " already exists!");
+        } else {
+            return usersRepository.save(usersVO);
+        }
+
+    }
+
     public UsersVO saveUser(UsersVO usersVO) {
         // 在儲存前，對密碼進行加密
         usersVO.setPassword(passwordEncoder.encode(usersVO.getPassword()));
