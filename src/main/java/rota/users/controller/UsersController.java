@@ -32,4 +32,14 @@ public class UsersController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody UsersVO usersVO){
+        try {
+            usersService.saveUser(usersVO);
+            return ResponseEntity.ok("User updated successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error updating user: " + e.getMessage());
+        }
+    }
+
 }
