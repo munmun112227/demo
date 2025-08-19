@@ -29,16 +29,22 @@ public class UsersVO implements UserDetails {
     @Column(name = "user_sta", insertable = false, columnDefinition = "integer default 0")
     private Integer status;
 
-    @Column(name = "user_cat", nullable = false)
-    private Integer type;
+    @Column(name = "register_by", nullable = false)
+    private String registerBy;
 
     public UsersVO(){}
 
-    public UsersVO(String username, String account, String password, Integer type) {
+    public UsersVO(String username, String account, String password) {
         this.username = username;
         this.account = account;
         this.password = password;
-        this.type = type;
+    }
+
+    public UsersVO(String username, String account, String password, String registerBy) {
+        this.username = username;
+        this.account = account;
+        this.password = password;
+        this.registerBy = registerBy;
     }
 
     // --- UserDetails interface methods ---
@@ -111,7 +117,7 @@ public class UsersVO implements UserDetails {
         this.status = status;
     }
 
-    public Integer getType() { return type; }
+    public String getRegisterBy() { return registerBy; }
 
-    public void setType(Integer type) { this.type = type; }
+    public void setRegisterBy(String registerBy) { this.registerBy = registerBy; }
 }
