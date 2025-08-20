@@ -11,6 +11,7 @@ import rota.configulation.jwt.JwtUtil;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class UsersService {
@@ -46,7 +47,7 @@ public class UsersService {
         usersRepository.deleteById(userId);
     }
 
-    public Iterable<UsersVO> getAllUsers() {
+    public List<UsersVO> getAllUsers() {
         return usersRepository.findAll();
     }
 }
