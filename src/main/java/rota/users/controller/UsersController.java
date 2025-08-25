@@ -57,4 +57,14 @@ public class UsersController {
         return usersService.getAllUsers();
     }
 
+    /**
+     * 用於取得指定使用者資訊。
+     * @param userId
+     * @return 使用者資訊
+     */
+    @GetMapping("/getUserById/{userId}")
+    public UsersVO getUserById(@PathVariable Integer userId){
+        return usersService.getUserById(userId);
+    }
+
 }

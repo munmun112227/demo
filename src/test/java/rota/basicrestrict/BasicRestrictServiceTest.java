@@ -89,8 +89,8 @@ public class BasicRestrictServiceTest {
 
         assertNotEquals(null, result);
         assertEquals(1, result.getId());
-        assertEquals(10, result.getMaxWorkingHourWeekly());
-        assertEquals(1, result.getMaxWorkingHourDaily());
+        assertEquals(1, savedBasicRestrictVO.getMaxWorkingHourWeekly());
+        assertEquals(10, result.getMaxWorkingHourDaily());
 
         //`any(BasicRestrictVO.class)`: 這是一個 Mockito 的「參數匹配器 (Argument Matcher)」。它的意思是「任何 BasicRestrictVO 型別的物件」。使用它比直接傳入
         // objectToSave 更常用也更靈活，因為它不要求物件的 equals 方法被正確實作。它讓我們專注於「save 方法被呼叫了」這件事，而不是「傳入的物件是否跟 objectToSave

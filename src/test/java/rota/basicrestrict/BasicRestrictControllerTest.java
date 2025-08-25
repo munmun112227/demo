@@ -30,8 +30,14 @@ public class BasicRestrictControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+        @MockBean
     private BasicRestrictService basicRestrictService;
+
+    @MockBean
+    private rota.configulation.jwt.JwtUtil jwtUtil;
+
+    @MockBean
+    private rota.users.model.CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private ObjectMapper objectMapper;
