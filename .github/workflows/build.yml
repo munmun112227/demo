@@ -1,5 +1,5 @@
 # 工作流程的名稱，會顯示在 GitHub 的 Actions 頁面上
-name: Java CI with Maven
+name: Java CI with Maven and Docker
 
 # 觸發這個工作流程的事件
 on:
@@ -12,10 +12,14 @@ on:
 
 # 定義工作流程中需要執行的任務
 jobs:
-  # 我們定義一個名為 "build" 的任務
-  build:
-    # 指定這個任務要跑在哪一種虛擬環境上，這裡是最新版的 Ubuntu
+  # 我們定義一個名為 "build-and-push" 的任務
+  build-and-push:
+    # 指定這個任務要跑在哪一種虛擬環境上
     runs-on: ubuntu-latest
+    # 設定這個任務的權限，需要有寫入 packages 的權限才能推送 Image
+    permissions:
+      contents: read
+      packages: write
 
     # 這個任務包含的步驟
     steps:
@@ -39,3 +43,31 @@ jobs:
     # 這行指令就跟我們剛剛在您電腦上執行的一模一樣
     - name: Build with Maven
       run: ./mvnw clean install
+
+    # --- 新增的 Docker 步驟 ---
+
+    # 步驟 4: 登入 GitHub Container Registry (GHCR)
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        # ${{ github.repository_owner }} 會自動抓取倉庫的擁有者名稱 (munmun112227)
+        # ${{ secrets.GITHUB_TOKEN }} 是由 GitHub Actions 自動產生的臨時密碼，最安全
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    # 步驟 5: 提取 Docker image 的中繼資料 (例如標籤)
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ github.repository_owner }}/demo
+
+    # 步驟 6: 建立 Docker image 並推送到 GHCR
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
