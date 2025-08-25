@@ -14,4 +14,4 @@ COPY ${JAR_FILE} app.jar
 
 # 步驟 4: 設定容器啟動時要執行的指令
 # 這就是當容器啟動時，Docker 內部會執行的指令，等同於我們手動執行 java -jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","--add-opens=java.base/java.lang=ALL-UNNAMED","-jar","/app.jar"]
