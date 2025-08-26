@@ -28,54 +28,25 @@ public class CompetenceController {
     @GetMapping("/{id}")
     public ResponseEntity<String> getCompetenceById(@PathVariable Integer id) {
         try {
-            CompetenceVO competence = competenceService.findById(id);
+            CompetenceVO competence = competenceService.getCompetenceById(id);
             return ResponseEntity.ok(objectMapper.writeValueAsString(competence));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error fetching competence: " + e.getMessage()}");
+            return ResponseEntity.ok("{\"error\": \"Failed to process JSON.\"}");
         }
     }
 
     /**
-     * 獲取所有Competences
-     * @return ResponseEntity<String>
-     */
-    @GetMapping("/list")
-    public ResponseEntity<String> getAllCompetences() {
-        try {
-            List<CompetenceVO> competences = competenceService.findAll();
-            return ResponseEntity.ok(objectMapper.writeValueAsString(competences));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error fetching competences: " + e.getMessage()}");
-        }
-    }
-
-    /**
-     * 新增Competence
+     * 新增修改Competence
      * @param competenceVO Competence object
      * @return ResponseEntity<String>
      */
     @PostMapping
     public ResponseEntity<String> createCompetence(@RequestBody CompetenceVO competenceVO) {
         try {
-            competenceService.save(competenceVO);
-            return ResponseEntity.ok("{"message": "Competence created successfully"}");
+            competenceService.saveCompetence(competenceVO);
+            return ResponseEntity.ok("{\"success\": \"Competence saved.\"}");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error creating competence: " + e.getMessage()}");
-        }
-    }
-
-    /**
-     * 修改Competence
-     * @param competenceVO Competence object
-     * @return ResponseEntity<String>
-     */
-    @PutMapping
-    public ResponseEntity<String> updateCompetence(@RequestBody CompetenceVO competenceVO) {
-        try {
-            competenceService.update(competenceVO);
-            return ResponseEntity.ok("{"message": "Competence updated successfully"}");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error updating competence: " + e.getMessage()}");
+            return ResponseEntity.status(500).body("{\"error\": \"Failed to save competence.\"}");
         }
     }
 }

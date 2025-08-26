@@ -28,10 +28,10 @@ public class StaffingController {
     @GetMapping("/{id}")
     public ResponseEntity<String> getStaffingById(@PathVariable Integer id) {
         try {
-            StaffingVO staffing = staffingService.findById(id);
+            StaffingVO staffing = staffingService.getStaffingById(id);
             return ResponseEntity.ok(objectMapper.writeValueAsString(staffing));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error fetching staffing: " + e.getMessage()}");
+            return ResponseEntity.status(500).body("{\"error\": \"Failed to process JSON.\"}");
         }
     }
 
@@ -42,40 +42,25 @@ public class StaffingController {
     @GetMapping("/list")
     public ResponseEntity<String> getAllStaffings() {
         try {
-            List<StaffingVO> staffings = staffingService.findAll();
+            List<StaffingVO> staffings = staffingService.getAllStaffings();
             return ResponseEntity.ok(objectMapper.writeValueAsString(staffings));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error fetching staffings: " + e.getMessage()}");
+            return ResponseEntity.status(500).body("{\"error\": \"Failed to process JSON.\"}");
         }
     }
 
     /**
-     * 新增Staffing
+     * 新增修改Staffing
      * @param staffingVO Staffing object
      * @return ResponseEntity<String>
      */
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<String> createStaffing(@RequestBody StaffingVO staffingVO) {
         try {
-            staffingService.save(staffingVO);
-            return ResponseEntity.ok("{"message": "Staffing created successfully"}");
+            staffingService.saveStaffing(staffingVO);
+            return ResponseEntity.ok("{\"success\": \"Staffing saved.\"}");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error creating staffing: " + e.getMessage()}");
-        }
-    }
-
-    /**
-     * 修改Staffing
-     * @param staffingVO Staffing object
-     * @return ResponseEntity<String>
-     */
-    @PutMapping
-    public ResponseEntity<String> updateStaffing(@RequestBody StaffingVO staffingVO) {
-        try {
-            staffingService.update(staffingVO);
-            return ResponseEntity.ok("{"message": "Staffing updated successfully"}");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("{"error": "Error updating staffing: " + e.getMessage()}");
+            return ResponseEntity.status(500).body("{\"error\": \"Failed to save staffing.\"}");
         }
     }
 }
