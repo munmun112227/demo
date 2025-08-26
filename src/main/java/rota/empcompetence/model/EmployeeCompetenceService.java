@@ -3,6 +3,8 @@ package rota.empcompetence.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeCompetenceService {
     @Autowired
@@ -16,7 +18,7 @@ public class EmployeeCompetenceService {
         return employeeCompetenceRepository.save(employeeCompetenceVO);
     }
 
-    public Iterable<EmployeeCompetenceVO> getAllEmployeeCompetences() {
+    public List<EmployeeCompetenceVO> getAllEmployeeCompetences() {
         return employeeCompetenceRepository.findAll();
     }
 }

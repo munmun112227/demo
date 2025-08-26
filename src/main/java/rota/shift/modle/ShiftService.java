@@ -3,6 +3,8 @@ package rota.shift.modle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShiftService {
     @Autowired
@@ -16,7 +18,7 @@ public class ShiftService {
         return shiftRepository.save(shiftVO);
     }
 
-    public Iterable<ShiftVO> getAllShifts() {
+    public List<ShiftVO> getAllShifts() {
         return shiftRepository.findAll();
     }
 }

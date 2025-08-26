@@ -3,6 +3,8 @@ package rota.task.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskService {
     @Autowired
@@ -16,7 +18,7 @@ public class TaskService {
         return taskRepository.save(taskVO);
     }
 
-    public Iterable<TaskVO> getAllTasks() {
+    public List<TaskVO> getAllTasks() {
         return taskRepository.findAll();
     }
 

@@ -3,6 +3,8 @@ package rota.roster.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RosterService {
     @Autowired
@@ -16,7 +18,7 @@ public class RosterService {
         return rosterRepository.save(rosterVO);
     }
 
-    public Iterable<RosterVO> getAllRosters() {
+    public List<RosterVO> getAllRosters() {
         return rosterRepository.findAll();
     }
 }

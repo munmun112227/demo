@@ -3,6 +3,8 @@ package rota.workunit.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkUnitService {
     @Autowired
@@ -16,7 +18,7 @@ public class WorkUnitService {
         return workUnitRepository.save(workUnitVO);
     }
 
-    public Iterable<WorkUnitVO> getAllWorkUnits() {
+    public List<WorkUnitVO> getAllWorkUnits() {
         return workUnitRepository.findAll();
     }
 }

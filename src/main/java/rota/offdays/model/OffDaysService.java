@@ -3,6 +3,8 @@ package rota.offdays.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OffDaysService {
     @Autowired
@@ -16,7 +18,7 @@ public class OffDaysService {
         return offDaysRepository.save(offDaysVO);
     }
 
-    public Iterable<OffDaysVO> getAllOffDays() {
+    public List<OffDaysVO> getAllOffDays() {
         return offDaysRepository.findAll();
     }
 }

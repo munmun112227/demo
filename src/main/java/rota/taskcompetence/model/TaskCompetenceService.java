@@ -3,6 +3,8 @@ package rota.taskcompetence.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskCompetenceService {
     @Autowired
@@ -20,7 +22,7 @@ public class TaskCompetenceService {
         taskCompetenceRepository.deleteById(id);
     }
 
-    public Iterable<TaskCompetenceVO> getAllTaskCompetences() {
+    public List<TaskCompetenceVO> getAllTaskCompetences() {
         return taskCompetenceRepository.findAll();
     }
 }
